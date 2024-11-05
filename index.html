@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="Apple_Stock-512.webp">
+    <title>ProfitPro - Share Profit Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 400px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        label {
+            display: block;
+            margin: 15px 0 5px;
+        }
+        input[type="number"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+        .result {
+            margin-top: 20px;
+            font-size: 1.2em;
+            text-align: center;
+        }
+    </style>
+</head>
+<body style="padding-top: 250px;">
+    <div class="container " >
+        <h1>ProfitPro</h1>
+        <label for="entryBudget">Entry Budget ($):</label>
+        <input type="number" id="entryBudget" placeholder="Enter your budget" required>
+
+        <label for="entryPrice">Entry Price per Share ($):</label>
+        <input type="number" id="entryPrice" placeholder="Enter entry price" required>
+
+        <label for="exitPrice">Estimated Exit Price per Share ($):</label>
+        <input type="number" id="exitPrice" placeholder="Enter exit price" required>
+
+        <button onclick="calculateProfit()">Calculate Profit</button>
+
+        <div class="result" id="result"></div>
+    </div>
+
+    <script>
+        function calculateProfit() {
+            const entryBudget = parseFloat(document.getElementById('entryBudget').value);
+            const entryPrice  = parseFloat(document.getElementById('entryPrice').value);
+            const exitPrice   = parseFloat(document.getElementById('exitPrice').value);
+
+            if (entryBudget > 0 && entryPrice > 0 && exitPrice > 0) {
+                const numberOfShares = Math.floor(entryBudget / entryPrice);
+                const totalExitValue = numberOfShares * exitPrice;
+                const netProfit = totalExitValue - entryBudget;
+
+                document.getElementById('result').innerHTML = `Number of Shares: ${numberOfShares}<br>Total Exit Value: $${totalExitValue.toFixed(2)}<br>Net Profit: $${netProfit.toFixed(2)}`;
+            } else {
+                document.getElementById('result').innerHTML = 'Please enter valid positive numbers.';
+            }
+        }
+    </script>
+</body>
+</html>
